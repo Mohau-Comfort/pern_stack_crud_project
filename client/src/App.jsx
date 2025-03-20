@@ -1,6 +1,6 @@
 // src/App.jsx
 import Navbar from './components/Navbar';
-import { Tablelist } from './components/Tablelist';
+import { TableList } from './components/TableList';
 
 function App() {
  
@@ -8,7 +8,7 @@ function App() {
   return (
     <>
       <Navbar />
-      <Tablelist />
+      <TableList />
     </>
   );
 }
