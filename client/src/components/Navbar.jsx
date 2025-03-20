@@ -8,9 +8,9 @@ export default function Navbar() {
   };
 
   return (
-    <>
+    <div className="fixed top-0 w-full z-30">
       {/* Drawer sidebar */}
-      <div className={`drawer ${isDrawerOpen ? 'drawer-open' : ''}`}>
+      <div className="drawer drawer-start z-40">
         <input 
           id="my-drawer" 
           type="checkbox" 
@@ -19,7 +19,7 @@ export default function Navbar() {
           onChange={toggleDrawer}
         />
         
-        <div className="drawer-side z-20">
+        <div className="drawer-side">
           <label 
             htmlFor="my-drawer" 
             aria-label="close sidebar" 
@@ -51,9 +51,9 @@ export default function Navbar() {
       <div className="navbar bg-base-100 shadow-sm">
         {/* Left side - Menu button */}
         <div className="flex-none">
-          <button 
-            className="btn btn-square btn-ghost"
-            onClick={toggleDrawer}
+          <label 
+            htmlFor="my-drawer" 
+            className="btn btn-square btn-ghost drawer-button"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -68,7 +68,7 @@ export default function Navbar() {
                 d="M4 6h16M4 12h16M4 18h16"
               ></path>
             </svg>
-          </button>
+          </label>
         </div>
         
         {/* Title - Using smaller flex to give more space to the search */}
@@ -112,6 +112,6 @@ export default function Navbar() {
           </button>
         </div>
       </div>
-    </>
+    </div>
   );
 }
