@@ -2,21 +2,17 @@
 
 import React from 'react';
 
-const clients = [
-  { name: "Tom Cruise", email: "tom@email.com", job: "Software Engineer", rate: "$150/hr", status: "Active" },
-  { name: "Denzel Washington", email: "denzel@email.com", job: "Oracle DBA", rate: "$175/hr", status: "Inactive" },
-  { name: "Stephen Curry", email: "chef@email.com", job: "Cyber Security", rate: "$200/hr", status: "Available" }
-];
-
-export const TableList = () => {
-  const handleEdit = (id) => {
-    console.log("Edit client with ID:", id);
-    // Add your edit logic here
+export const TableList = ({ clients, onEditClient, onDeleteClient }) => {
+  const handleEdit = (client) => {
+    if (onEditClient) {
+      onEditClient(client);
+    }
   };
 
   const handleDelete = (id) => {
-    console.log("Delete client with ID:", id);
-    // Add your delete logic here
+    if (onDeleteClient) {
+      onDeleteClient(id);
+    }
   };
 
   return (
@@ -35,48 +31,54 @@ export const TableList = () => {
           </tr>
         </thead>
         <tbody>
-          {clients.map((client, index) => (
-            <tr 
-              key={index}
-              className="hover:bg-blue-50 hover:shadow-md group transition-all duration-300"
-            >
-              <td className="group-hover:font-bold">{index + 1}</td>
-              <td className="group-hover:text-blue-600">{client.name}</td>
-              <td>
-                <a 
-                  href={`mailto:${client.email}`} 
-                  className="text-gray-600 group-hover:text-blue-500 group-hover:underline"
-                >
-                  {client.email}
-                </a>
-              </td>
-              <td className="group-hover:italic">{client.job}</td>
-              <td className="group-hover:text-green-600">{client.rate}</td>
-              <td>
-                <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
-                  client.status === "Active" ? "bg-blue-100 text-blue-800 group-hover:bg-blue-200" :
-                  client.status === "Inactive" ? "bg-red-100 text-red-800 group-hover:bg-red-200" :
-                  "bg-green-100 text-green-800 group-hover:bg-green-200"
-                } transition-colors duration-300`}>
-                  {client.status}
-                </span>
-              </td>
-              <td className="flex gap-2">
-                <button 
-                  onClick={() => handleEdit(index + 1)}
-                  className="btn btn-info btn-sm text-white hover:bg-sky-600"
-                >
-                  Edit
-                </button>
-                <button 
-                  onClick={() => handleDelete(index + 1)}
-                  className="btn btn-error btn-sm text-white hover:bg-red-600"
-                >
-                  Delete
-                </button>
-              </td>
+          {clients.length === 0 ? (
+            <tr>
+              <td colSpan="7" className="text-center py-4">No clients found. Add a client to get started.</td>
             </tr>
-          ))}
+          ) : (
+            clients.map((client) => (
+              <tr 
+                key={client.id}
+                className="hover:bg-blue-50 hover:shadow-md group transition-all duration-300"
+              >
+                <td className="group-hover:font-bold">{client.id}</td>
+                <td className="group-hover:text-blue-600">{client.name}</td>
+                <td>
+                  <a 
+                    href={`mailto:${client.email}`} 
+                    className="text-gray-600 group-hover:text-blue-500 group-hover:underline"
+                  >
+                    {client.email}
+                  </a>
+                </td>
+                <td className="group-hover:italic">{client.job}</td>
+                <td className="group-hover:text-green-600">{client.rate}</td>
+                <td>
+                  <span className={`px-2 py-1 rounded-full text-xs font-semibold ${
+                    client.status === "Active" ? "bg-blue-100 text-blue-800 group-hover:bg-blue-200" :
+                    client.status === "Inactive" ? "bg-red-100 text-red-800 group-hover:bg-red-200" :
+                    "bg-green-100 text-green-800 group-hover:bg-green-200"
+                  } transition-colors duration-300`}>
+                    {client.status}
+                  </span>
+                </td>
+                <td className="flex gap-2">
+                  <button 
+                    onClick={() => handleEdit(client)}
+                    className="btn btn-info btn-sm text-white hover:bg-sky-600"
+                  >
+                    Edit
+                  </button>
+                  <button 
+                    onClick={() => handleDelete(client.id)}
+                    className="btn btn-error btn-sm text-white hover:bg-red-600"
+                  >
+                    Delete
+                  </button>
+                </td>
+              </tr>
+            ))
+          )}
         </tbody>
       </table>
     </div>

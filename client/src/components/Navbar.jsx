@@ -1,6 +1,8 @@
+//src/components/Navbar.jsx
+
 import { useState } from 'react';
 
-export default function Navbar() {
+export default function Navbar({ onOpen }) {
   const [isDrawerOpen, setIsDrawerOpen] = useState(false);
 
   const toggleDrawer = () => {
@@ -107,8 +109,11 @@ export default function Navbar() {
         
         {/* Right side button */}
         <div className="flex-none">
-          <button className="btn btn-info btn-sm text-white hover:bg-sky-600">
-            Button
+          <button 
+            onClick={onOpen}
+            className="btn btn-info btn-sm text-white hover:bg-sky-600"
+          >
+            Add Client
           </button>
         </div>
       </div>
